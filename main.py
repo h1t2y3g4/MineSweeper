@@ -14,6 +14,10 @@ screen_main.fill(setting.background_color)
 pygame.display.set_caption('扫雷')
 
 
+# 初始化帧数
+FPS = pygame.time.Clock()
+
+
 # 初始化扫雷区域
 field = MineField(screen_main, setting)
 field.build_me()
@@ -40,6 +44,7 @@ blocks.draw(screen_main)
 
 # 开始程序主循环
 while True:
-    check_event(blocks)
+    check_event(blocks, setting)
     create_blocks(field, screen_main, setting)
     pygame.display.flip()
+    FPS.tick(setting.fps)

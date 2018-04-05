@@ -2,25 +2,25 @@ from mouse_class import MouseMove
 from mine_block import MineBlock
 import sys
 import pygame
-import pygame.sprite
 
 
 # 检查事件
-def check_event(blocks):
+def check_event(blocks, setting):
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT or (event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE):
+            pygame.quit()
             sys.exit()
         else:
             if event.type == pygame.MOUSEMOTION:
                 mouse_x, mouse_y = event.pos
-                check_mouse_position(mouse_x, mouse_y, blocks)
+                check_mouse_position(mouse_x, mouse_y, blocks, setting)
         
 
-def check_mouse_position(mouse_x, mouse_y, blocks):
+def check_mouse_position(mouse_x, mouse_y, blocks, setting):
     mouse_class = MouseMove(mouse_x, mouse_y)
     the_block = pygame.sprite.spritecollideany(mouse_class, blocks)
     if the_block:
-        the_block.change_mousemotion_flage(False)
+        the_block.change_mousemotion_flage(setting)
         print('碰了')
         print(len(blocks))
 

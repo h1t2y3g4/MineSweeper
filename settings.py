@@ -13,7 +13,11 @@ class Setting:
         # 设置地雷小方块的参数。
         self.mine_window_size = (24, 24)
         self.mine_block_color = (43, 87, 154)
-        self.mine_block_color_mousemotion = (255, 255, 255)
+        self.mine_block_color_mousemotion = (101, 169, 241)
+        self.mousemotion_flage = False
+
+        # 设置帧数
+        self.fps = 60
 
 
 

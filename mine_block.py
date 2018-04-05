@@ -4,12 +4,12 @@ from pygame.sprite import Sprite
 
 class MineBlock(Sprite):
 
-    def __init__(self, field, screen, setting, mousemotion_flage=False):
+    def __init__(self, field, screen, setting):
         super().__init__()
         """初始化地雷方块，并确定绘制区域"""
         self.field = field
         self.screen = screen
-        self.mousemotion_flage = mousemotion_flage
+        self.mousemotion_flage = setting.mousemotion_flage
 
         # 加载图片，并且设定第一个小方块的位置
         self.image = pygame.Surface(setting.mine_window_size)
@@ -27,5 +27,5 @@ class MineBlock(Sprite):
         self.number_x = int(self.field.rect.width/self.len)
         self.number_y = int(self.field.rect.height/self.high)
 
-    def change_mousemotion_flage(self, boole=True):
-        self.mousemotion_flage = boole
+    def change_mousemotion_flage(self, setting):
+        setting.mousemotion_flage = True
