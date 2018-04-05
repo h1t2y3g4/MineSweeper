@@ -15,6 +15,8 @@ class Setting:
         self.mine_block_color = (43, 87, 154)
         self.mine_block_color_mousemotion = (101, 169, 241)  # 鼠标放在上面时的地雷颜色
         self.clicked_mine_block_color = (193, 204, 227)  # 翻开后的地雷方块颜色
+        self.click_mine_block_picture = r"images/24乘24点击爆炸地雷.bmp"  # 点中地雷的那个方块的图片
+        self.other_mine_block_picture = r"images/24乘24爆炸地雷.bmp"  # 除了点中的，其他地雷的图片
 
         # 设置记录窗口参数
         self.record_window_size = (200, 50)
@@ -24,5 +26,5 @@ class Setting:
         self.fps = 60
 
         # 设置地雷数
-        self.mine_number = 10
+        self.mine_number = 100
 

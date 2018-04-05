@@ -23,8 +23,10 @@ class MineBlock(Sprite):
         self.number_x = int(self.field.rect.width/self.len)
         self.number_y = int(self.field.rect.height/self.high)
 
-        # 是否是被点开了的方块
-        self.clicked_flag = False
+        # 各种检查条件
+        self.clicked_flag = False  # 是否是被点开了的方块
+        self.mine_flag = False  # 是否是地雷
+        self.clicked_mine_flag = False  # 是否是点中的那个地雷
 
     def built_me(self):
         # 将方块绘制到主屏幕
