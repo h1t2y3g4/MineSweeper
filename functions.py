@@ -78,8 +78,8 @@ def response_mouse_left_click(mouse_x, mouse_y, blocks, setting, status):
             if not block.left_clicked_flag:
                 # 如果当前方块是没有左键点过的
                 if block.rect.top <= mouse_y <= block.rect.bottom and block.rect.left <= mouse_x <= block.rect.right:
-                    if not (block.banner_flag or block.question_mark_flag):
-                        # 如果既不是旗子也不是问号
+                    if not block.banner_flag:
+                        # 如果不是旗子，可以是问号
                         block.left_clicked_flag = True
                         if status.first_click:
                             # 检测是否是第一次点击的方块
@@ -125,7 +125,7 @@ def automatic_click_consecutive_block(x, y, blocks, setting):
     for der_y in (-1, 0, 1):
         for der_x in (-1, 0, 1):
             try:
-                if y + der_y < 0 or x + der_x < 0:
+                if y + der_y < 0 or x + der_x < 0 or y + der_y > blocks[0][0].number_y or x + der_x > blocks[0][0].number_x:
                     continue
                 if not blocks[y + der_y][x + der_x].left_clicked_flag:
                     blocks[y + der_y][x + der_x].left_clicked_flag = True

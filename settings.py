@@ -39,5 +39,5 @@ class Setting:
         self.fps = 60
 
         # 设置地雷数
-        self.mine_number = 50
+        self.mine_number = 10
 
