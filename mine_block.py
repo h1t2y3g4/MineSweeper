@@ -23,15 +23,18 @@ class MineBlock(Sprite):
         self.number_x = int(self.field.rect.width/self.len)
         self.number_y = int(self.field.rect.height/self.high)
 
+        # 周围的地雷数
+        self.count = 0
+
         # 各种检查条件
-        self.clicked_flag = False  # 是否是被点开了的方块
+        self.left_clicked_flag = False  # 是否是被点开了的方块
         self.mine_flag = False  # 是否是地雷
         self.clicked_mine_flag = False  # 是否是点中的那个地雷
+        self.banner_flag = False  # 是否是旗帜状态
+        self.question_mark_flag = False  # 是否为问号状态
+        self.first_click_flag = False  # 是否是第一次点击的方块
 
     def built_me(self):
         # 将方块绘制到主屏幕
         self.screen.blit(self.image, self.rect)
 
-    def change_clicked_flag(self):
-        # 改变翻开地雷的标志
-        self.clicked_flag = True
