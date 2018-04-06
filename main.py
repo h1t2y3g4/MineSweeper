@@ -39,19 +39,11 @@ def main():
 
     # 开始程序主循环
     while True:
-<<<<<<< HEAD
         check_event(blocks, setting, status)
-=======
-        check_event(blocks, setting)
->>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
         update_blocks(blocks)
         pygame.display.flip()
         fps.tick(setting.fps)
 
 
 if __name__ == '__main__':
-<<<<<<< HEAD
     main()
-=======
-    main()
->>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
