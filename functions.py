@@ -20,6 +20,7 @@ def check_event(blocks, setting, status):
             status.game_going_flag = False
             break
         else:
+<<<<<<< HEAD
             if status.game_going_flag:
                 if event.type == pygame.MOUSEMOTION:
                     # 鼠标移动到方块上面该做的事
@@ -168,6 +169,37 @@ def response_mouse_position(mouse_x, mouse_y, blocks, setting):
                     block.image.fill(setting.mine_block_color)
 
 
+=======
+            if event.type == pygame.MOUSEMOTION:
+                mouse_x, mouse_y = event.pos
+                response_mouse_position(mouse_x, mouse_y, blocks, setting)
+            elif event.type == pygame.MOUSEBUTTONUP:
+                mouse_x, mouse_y = event.pos
+                response_mouse_click(mouse_x, mouse_y, blocks, setting)
+
+
+# 当鼠标点击了没有翻开的地雷的时候，做出反应
+def response_mouse_click(mouse_x, mouse_y, blocks, setting):
+    for block_y in blocks:
+        for block in block_y:
+            if not block.clicked_flag:
+                if block.rect.top <= mouse_y <= block.rect.bottom and block.rect.left <= mouse_x <= block.rect.right:
+                    block.change_clicked_flag()
+                    block.image.fill(setting.clicked_mine_block_color)
+
+
+# 当鼠标移动到没有翻开的方块上时作出反应
+def response_mouse_position(mouse_x, mouse_y, blocks, setting):
+    for block_y in blocks:
+        for block in block_y:
+            if not block.clicked_flag:
+                if block.rect.top <= mouse_y <= block.rect.bottom and block.rect.left <= mouse_x <= block.rect.right:
+                    block.image.fill(setting.mine_block_color_mousemotion)
+                else:
+                    block.image.fill(setting.mine_block_color)
+
+
+>>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
 # 创建地雷列表
 def create_blocks(field, screen_main, setting):
     blocks = []
@@ -190,6 +222,7 @@ def create_blocks(field, screen_main, setting):
     return blocks
 
 
+<<<<<<< HEAD
 # 在小方块中生成地雷和周围方块的雷数
 def create_mines(blocks, setting):
     mine_count = 0
@@ -222,6 +255,8 @@ def check_first_clicked_block(blocks, rand_x, rand_y):
     return True
 
 
+=======
+>>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
 # 将地雷列表会知道主屏幕上面去
 def update_blocks(blocks):
     for block_y in blocks:

@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9c71ec7f-bf4a-4fcf-96ee-0b1dd27e4d73" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions.py" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
+=======
+>>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,8 +20,13 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="-12">
               <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
+=======
+            <state relative-caret-position="213">
+              <caret line="42" column="16" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="16" />
+>>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -30,11 +37,16 @@
       <file leaf-file-name="functions.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/functions.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="175">
               <caret line="139" column="82" lean-forward="true" selection-start-line="139" selection-start-column="82" selection-end-line="139" selection-end-column="82" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
+=======
+            <state relative-caret-position="188">
+              <caret line="59" column="21" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
+>>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
             </state>
           </provider>
         </entry>
@@ -42,8 +54,13 @@
       <file leaf-file-name="mine_block.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mine_block.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="175">
               <caret line="22" column="16" lean-forward="true" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+=======
+            <state relative-caret-position="763">
+              <caret line="33" column="19" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
+>>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -63,8 +80,13 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/settings.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="188">
               <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+=======
+            <state relative-caret-position="150">
+              <caret line="6" column="49" selection-start-line="6" selection-start-column="49" selection-end-line="6" selection-end-column="49" />
+>>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
             </state>
           </provider>
         </entry>
@@ -72,8 +94,13 @@
       <file leaf-file-name="record_windows.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/record_windows.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="200">
               <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+=======
+            <state relative-caret-position="225">
+              <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+>>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
             </state>
           </provider>
         </entry>
@@ -82,7 +109,11 @@
         <entry file="file://$PROJECT_DIR$/status.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="125">
+<<<<<<< HEAD
               <caret line="5" column="47" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
+=======
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
+>>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
             </state>
           </provider>
         </entry>
@@ -104,11 +135,19 @@
       <list>
         <option value="$PROJECT_DIR$/mouse_class.py" />
         <option value="$PROJECT_DIR$/mine_field.py" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/record_windows.py" />
         <option value="$PROJECT_DIR$/mine_block.py" />
         <option value="$PROJECT_DIR$/status.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/settings.py" />
+=======
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/mine_block.py" />
+        <option value="$PROJECT_DIR$/settings.py" />
+        <option value="$PROJECT_DIR$/record_windows.py" />
+        <option value="$PROJECT_DIR$/status.py" />
+>>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
         <option value="$PROJECT_DIR$/functions.py" />
       </list>
     </option>
@@ -127,7 +166,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -139,6 +177,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -203,7 +242,11 @@
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1796875" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50208336" side_tool="true" weight="0.32928178" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49791667" weight="0.32596686" />
+=======
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49791667" visible="true" weight="0.32596686" />
+>>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -550,6 +593,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mouse_class.py" />
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/mine_field.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
@@ -564,10 +608,17 @@
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
+=======
+    <entry file="file://$PROJECT_DIR$/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" column="49" selection-start-line="6" selection-start-column="49" selection-end-line="6" selection-end-column="49" />
+>>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/status.py">
+<<<<<<< HEAD
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
           <caret line="5" column="47" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
@@ -578,11 +629,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
           <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+=======
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+>>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mine_block.py">
+    <entry file="file://$PROJECT_DIR$/record_windows.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="175">
           <caret line="22" column="16" lean-forward="true" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
           <folding>
@@ -595,16 +652,52 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
           <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+=======
+        <state relative-caret-position="225">
+          <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mine_field.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mine_block.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="763">
+          <caret line="33" column="19" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="42" column="16" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+>>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/functions.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="175">
           <caret line="139" column="82" lean-forward="true" selection-start-line="139" selection-start-column="82" selection-end-line="139" selection-end-column="82" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
+=======
+        <state relative-caret-position="188">
+          <caret line="59" column="21" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
+>>>>>>> f144367de06850ba0bea4a4bea3922ffc08f2e23
         </state>
       </provider>
     </entry>
