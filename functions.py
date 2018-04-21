@@ -2,7 +2,12 @@ from mine_block import MineBlock
 import sys
 import pygame
 import random
-import os
+import time
+
+
+# 选择难度
+def chose_difficulty(status, setting):
+    pass
 
 
 # 检查事件
@@ -18,9 +23,11 @@ def check_event(blocks, setting, status):
             """
             blocks.clear()
             status.game_going_flag = False
+            status.F5_key = True
             break
         else:
             if status.game_going_flag:
+                response_if_win(blocks, status)
                 if event.type == pygame.MOUSEMOTION:
                     # 鼠标移动到方块上面该做的事
                     mouse_x, mouse_y = event.pos
@@ -33,13 +40,31 @@ def check_event(blocks, setting, status):
                         response_mouse_left_click(mouse_x, mouse_y, blocks, setting, status)
                     elif button == 3:
                         # 按下右键后该做的事
-                        response_mouse_right_click(mouse_x, mouse_y, blocks, setting)
+                        response_mouse_right_click(mouse_x, mouse_y, blocks, setting, status)
             else:
                 open_other_block(blocks, setting)
 
 
+# 对游戏是否胜利做出响应
+def response_if_win(blocks, status):
+    status.game_win = check_game_win_flag(blocks)
+    if status.game_win:
+        status.game_going_flag = False
+
+        print("你赢了")
+
+
+# 检查游戏是否胜利,返回status的记录旗帜
+def check_game_win_flag(blocks):
+    for block_y in blocks:
+        for block in block_y:
+            if not (block.left_clicked_flag or block.mine_flag):
+                return False
+    return True
+
+
 # 当鼠标右键点击了方块时，作出反应
-def response_mouse_right_click(mouse_x, mouse_y, blocks, setting):
+def response_mouse_right_click(mouse_x, mouse_y, blocks, setting, status):
     for block_y in blocks:
         for block in block_y:
             if block.rect.top <= mouse_y <= block.rect.bottom and block.rect.left <= mouse_x <= block.rect.right:
@@ -47,11 +72,13 @@ def response_mouse_right_click(mouse_x, mouse_y, blocks, setting):
                     # 如果是未点开，并且不是旗帜，并且不是问号
                     block.image = pygame.image.load(setting.right_click_banner_picture)
                     block.banner_flag = True
+                    status.fake_mine_number -= 1
                 elif block.banner_flag and not (block.left_clicked_flag or block.question_mark_flag):
                     # 如果是旗帜，并且未点开，并且不是问号
                     block.image = pygame.image.load(setting.right_click_question_mark_picture)
                     block.banner_flag = False
                     block.question_mark_flag = True
+                    status.fake_mine_number += 1
                 elif block.question_mark_flag and not (block.left_clicked_flag or block.banner_flag):
                     # 如果是问号，并且未点开，并且不是旗帜
                     block.image = pygame.Surface(setting.mine_window_size)
@@ -84,6 +111,8 @@ def response_mouse_left_click(mouse_x, mouse_y, blocks, setting, status):
                         if status.first_click:
                             # 检测是否是第一次点击的方块
                             block.first_click_flag = True
+                            status.first_click_time = time.time()
+                            status.game_begin_flag = True
                         if block.mine_flag:
                             # 如果点开的这个方块是地雷，则加载点开爆炸地雷图片
                             block.image = pygame.image.load(setting.click_mine_block_picture)
@@ -205,6 +234,8 @@ def create_mines(blocks, setting):
             for der_y in (-1, 0, 1):
                 for der_x in (-1, 0, 1):
                     try:
+                        if rand_y + der_y < 0 or rand_x + der_x < 0 or rand_y + der_y > blocks[0][0].number_y or rand_x + der_x > blocks[0][0].number_x:
+                            continue
                         blocks[rand_y + der_y][rand_x + der_x].count += 1
                     except IndexError:
                         continue
@@ -222,8 +253,31 @@ def check_first_clicked_block(blocks, rand_x, rand_y):
     return True
 
 
-# 将地雷列表会知道主屏幕上面去
+# 将地雷列表绘制到主屏幕上面去
 def update_blocks(blocks):
     for block_y in blocks:
         for block in block_y:
             block.built_me()
+
+
+# 更新记录窗口显示的时间
+def update_record_windows(time_record_window, number_record_window, status):
+    if status.game_begin_flag and status.game_going_flag:
+        # 更新时间显示
+        status.click_time = time.time()
+        status.time_record = int(status.click_time - status.first_click_time)
+        time_record_window.build_me()
+        time_record_window.update_font()
+
+        # 更新地雷显示
+        number_record_window.build_me()
+        number_record_window.update_font()
+
+
+# 游戏结束后绘制半透明蒙版
+def game_over(field, status):
+    if not status.game_going_flag:
+        if status.game_win:
+            field.game_over_win()
+        else:
+            field.game_over_fail()

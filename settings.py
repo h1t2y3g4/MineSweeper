@@ -1,14 +1,49 @@
 class Setting:
 
-    def __init__(self):
+    def __init__(self, status):
+        # 接受游戏记录数据
+        self.status = status
+
+        if status.easy:
+            # 设置主界面的参数
+            self.main_window_size = (600, 650)
+            # 设置扫雷区域的参数。
+            self.minefield_window_size = (501, 501)  # 20*20
+            # 设置地雷数
+            self.mine_number = 2  # 50
+            # 游戏结束后在扫雷田上出现的文字尺寸
+            self.minefield_font_size = 100
+        elif status.middle:
+            # 设置主界面的参数
+            self.main_window_size = (1000, 650)
+            # 设置扫雷区域的参数。
+            self.minefield_window_size = (901, 501)  # 36*20
+            # 设置地雷数
+            self.mine_number = 110
+            # 游戏结束后在扫雷田上出现的文字尺寸
+            self.minefield_font_size = 160
+        elif status.hard:
+            # 设置主界面的参数
+            self.main_window_size = (1300, 650)
+            # 设置扫雷区域的参数。
+            self.minefield_window_size = (1201, 501)  # 48*20
+            # 设置地雷数
+            self.mine_number = 200
+            # 游戏结束后在扫雷田上出现的文字尺寸
+            self.minefield_font_size = 200
+        else:
+            print("请选择难度")
 
         # 设置主界面的参数
-        self.main_window_size = (600, 700)
         self.background_color = (197, 234, 255)  # self.background_color = (145, 161, 187)
 
         # 设置扫雷区域的参数。
-        self.minefield_window_size = (501, 501)
         self.minefield_color = (0, 0, 0)
+        self.game_over_color = (255, 255, 255, 200)
+        self.minefield_font_color = (0, 0, 0)  # 游戏结束后在扫雷田上出现的文字颜色
+
+        # 初始化记录窗口的雷数
+        self.status.fake_mine_number = self.mine_number
 
         # 设置地雷小方块的参数。
         self.mine_window_size = (24, 24)
@@ -34,10 +69,10 @@ class Setting:
         # 设置记录窗口参数
         self.record_window_size = (200, 50)
         self.record_window_color = (255, 255, 255)
+        self.font_color = (0, 0, 0)
+        self.number_record_picture = r"images/50乘50地雷计数.bmp"
+        self.time_record_picture = r"images/50乘50时钟.bmp"
 
         # 设置帧数
         self.fps = 60
-
-        # 设置地雷数
-        self.mine_number = 50
 
