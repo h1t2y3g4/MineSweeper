@@ -2,25 +2,31 @@ from mine_block import MineBlock
 import sys
 import pygame
 import random
-import os
+import time
 
 
 # 检查事件
-def check_event(blocks, setting, status):
+def check_event(blocks, setting, status, difficulty):
     for event in pygame.event.get():
         if event.type == pygame.QUIT or (event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE):
             pygame.quit()
             sys.exit()
+        elif event.type == pygame.KEYDOWN and (event.key == pygame.K_LCTRL or event.key == pygame.K_RCTRL):
+            status.ctrl_flag = True
+        elif event.type == pygame.KEYUP and (event.key == pygame.K_LCTRL or event.key == pygame.K_RCTRL):
+            status.ctrl_flag = False
         elif event.type == pygame.KEYUP and event.key == pygame.K_F5:
-            """
-            python = sys.executable
-            os.execl(python, python, *sys.argv)
-            """
             blocks.clear()
             status.game_going_flag = False
+            status.F5_key = True
+            if status.ctrl_flag:
+                difficulty.ctrl_F5_key = True
+            else:
+                difficulty.ctrl_F5_key = False
             break
         else:
             if status.game_going_flag:
+                response_if_win(blocks, status)
                 if event.type == pygame.MOUSEMOTION:
                     # 鼠标移动到方块上面该做的事
                     mouse_x, mouse_y = event.pos
@@ -33,13 +39,31 @@ def check_event(blocks, setting, status):
                         response_mouse_left_click(mouse_x, mouse_y, blocks, setting, status)
                     elif button == 3:
                         # 按下右键后该做的事
-                        response_mouse_right_click(mouse_x, mouse_y, blocks, setting)
+                        response_mouse_right_click(mouse_x, mouse_y, blocks, setting, status)
             else:
                 open_other_block(blocks, setting)
 
 
+# 对游戏是否胜利做出响应
+def response_if_win(blocks, status):
+    status.game_win = check_game_win_flag(blocks)
+    if status.game_win:
+        status.game_going_flag = False
+
+        print("你赢了")
+
+
+# 检查游戏是否胜利,返回status的记录旗帜
+def check_game_win_flag(blocks):
+    for block_y in blocks:
+        for block in block_y:
+            if not (block.left_clicked_flag or block.mine_flag):
+                return False
+    return True
+
+
 # 当鼠标右键点击了方块时，作出反应
-def response_mouse_right_click(mouse_x, mouse_y, blocks, setting):
+def response_mouse_right_click(mouse_x, mouse_y, blocks, setting, status):
     for block_y in blocks:
         for block in block_y:
             if block.rect.top <= mouse_y <= block.rect.bottom and block.rect.left <= mouse_x <= block.rect.right:
@@ -47,11 +71,13 @@ def response_mouse_right_click(mouse_x, mouse_y, blocks, setting):
                     # 如果是未点开，并且不是旗帜，并且不是问号
                     block.image = pygame.image.load(setting.right_click_banner_picture)
                     block.banner_flag = True
+                    status.fake_mine_number -= 1
                 elif block.banner_flag and not (block.left_clicked_flag or block.question_mark_flag):
                     # 如果是旗帜，并且未点开，并且不是问号
                     block.image = pygame.image.load(setting.right_click_question_mark_picture)
                     block.banner_flag = False
                     block.question_mark_flag = True
+                    status.fake_mine_number += 1
                 elif block.question_mark_flag and not (block.left_clicked_flag or block.banner_flag):
                     # 如果是问号，并且未点开，并且不是旗帜
                     block.image = pygame.Surface(setting.mine_window_size)
@@ -84,6 +110,8 @@ def response_mouse_left_click(mouse_x, mouse_y, blocks, setting, status):
                         if status.first_click:
                             # 检测是否是第一次点击的方块
                             block.first_click_flag = True
+                            status.first_click_time = time.time()
+                            status.game_begin_flag = True
                         if block.mine_flag:
                             # 如果点开的这个方块是地雷，则加载点开爆炸地雷图片
                             block.image = pygame.image.load(setting.click_mine_block_picture)
@@ -205,6 +233,8 @@ def create_mines(blocks, setting):
             for der_y in (-1, 0, 1):
                 for der_x in (-1, 0, 1):
                     try:
+                        if rand_y + der_y < 0 or rand_x + der_x < 0 or rand_y + der_y > blocks[0][0].number_y or rand_x + der_x > blocks[0][0].number_x:
+                            continue
                         blocks[rand_y + der_y][rand_x + der_x].count += 1
                     except IndexError:
                         continue
@@ -222,8 +252,114 @@ def check_first_clicked_block(blocks, rand_x, rand_y):
     return True
 
 
-# 将地雷列表会知道主屏幕上面去
+# 将地雷列表绘制到主屏幕上面去
 def update_blocks(blocks):
     for block_y in blocks:
         for block in block_y:
             block.built_me()
+
+
+# 更新记录窗口显示的时间
+def update_record_windows(time_record_window, number_record_window, status):
+    if status.game_begin_flag and status.game_going_flag:
+        # 更新时间显示
+        status.click_time = time.time()
+        status.time_record = int(status.click_time - status.first_click_time)
+        time_record_window.build_me()
+        time_record_window.update_font()
+
+        # 更新地雷显示
+        number_record_window.build_me()
+        number_record_window.update_font()
+
+
+# 游戏结束后绘制半透明蒙版
+def game_over(field, status):
+    if not status.game_going_flag:
+        if status.game_win:
+            field.game_over_win()
+        else:
+            field.game_over_fail()
+
+
+# 游戏开始之前创建选择难度窗口并选择
+def chose_difficulty(status, setting, difficulty):
+    # 初始化窗口
+    screen_chose = pygame.display.set_mode(setting.chose_window_size)
+    screen_chose.fill(setting.background_color)
+    ico = pygame.image.load(setting.icon).convert_alpha()
+    pygame.display.set_icon(ico)
+    pygame.display.set_caption("扫雷")
+
+    # 显示文字
+    set_font(screen_chose, setting, status)
+
+    fps = pygame.time.Clock()
+
+    # 开始检测点击位置循环
+    while True:
+        check_chose(status, difficulty)
+        pygame.display.flip()
+        if status.chose_flag:
+            break
+        fps.tick(setting.fps)
+
+
+def check_chose(status, difficulty):
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT or (event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE):
+            pygame.quit()
+            sys.exit()
+        else:
+            if event.type == pygame.MOUSEBUTTONUP:
+                mouse_x, mouse_y = event.pos
+                button = event.button
+                if button == 1:
+                    i = 0
+                    for rect in status.difficulty_rect:
+                        if rect.top <= mouse_y <= rect.bottom and rect.left <= mouse_x <= rect.right:
+                            if i == 0:
+                                difficulty.easy = True
+                                difficulty.middle = False
+                                difficulty.hard = False
+                            elif i == 1:
+                                difficulty.easy = False
+                                difficulty.middle = True
+                                difficulty.hard = False
+                            elif i == 2:
+                                difficulty.easy = False
+                                difficulty.middle = False
+                                difficulty.hard = True
+                            status.chose_flag = True
+                        i += 1
+
+
+# 设置选择难度窗口描述文本
+def set_font(screen, setting, status):
+
+    # 获得窗口rect信息
+    screen_rect = screen.get_rect()
+
+    font_build("请选择难度", (screen_rect.centerx, screen_rect.y + 30), 30, screen, setting.font_color)
+    font_build("(直接点击）", (screen_rect.centerx, screen_rect.y + 70), 20, screen, setting.font_color)
+    rect = font_build("简单", (screen_rect.centerx - 100, screen_rect.y + 110), 30, screen, setting.chose_font_color, True)
+    status.difficulty_rect.append(rect)
+    rect = font_build("一般", (screen_rect.centerx, screen_rect.y + 110), 30, screen, setting.chose_font_color, True)
+    status.difficulty_rect.append(rect)
+    rect = font_build("困难", (screen_rect.centerx + 100, screen_rect.y + 110), 30, screen, setting.chose_font_color, True)
+    status.difficulty_rect.append(rect)
+    font_build("任何时候按F5重新开始当前难度游戏", (screen_rect.centerx, screen_rect.y + 180), 20, screen, setting.font_color)
+    font_build("任何时候按ctrl+F5重新开始游戏", (screen_rect.centerx, screen_rect.y + 220), 20, screen, setting.font_color)
+    font_build("copyright © 陈守阳", (screen_rect.centerx, screen_rect.y + 270), 16, screen, setting.font_color)
+
+
+def font_build(content, pos, font_size, screen, color, bold=False):
+    # 显示“请选择难度”
+    text = pygame.font.SysFont("华文仿宋", font_size)
+    text.set_bold(bold)
+    text_picture = text.render(content, True, color)
+    text_picture_rect = text_picture.get_rect()
+    text_picture_rect.centerx = pos[0]
+    text_picture_rect.y = pos[1]
+    screen.blit(text_picture, text_picture_rect)
+    return text_picture_rect

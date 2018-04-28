@@ -9,10 +9,11 @@ class MineBlock(Sprite):
         """初始化地雷方块，并确定绘制区域"""
         self.field = field
         self.screen = screen
+        self.setting = setting
 
         # 加载图片，并且设定第一个小方块的位置
-        self.image = pygame.Surface(setting.mine_window_size)
-        self.image.fill(setting.mine_block_color)
+        self.image = pygame.Surface(self.setting.mine_window_size)
+        self.image.fill(self.setting.mine_block_color)
         self.rect = self.image.get_rect()
         self.rect.x = self.field.rect.left + 1
         self.rect.y = self.field.rect.top + 1
