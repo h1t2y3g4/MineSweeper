@@ -5,3 +5,4 @@ class Difficulty:
         self.easy = False  # 是否为简单模式
         self.middle = True  # 是否为一般模式
         self.hard = False  # 是否为困难模式
+        self.very_hard = False  # 是否为非常困难模式

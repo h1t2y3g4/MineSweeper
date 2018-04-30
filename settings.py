@@ -1,39 +1,76 @@
 class Setting:
 
-    def __init__(self, difficulty, status):
+    def __init__(self, difficulty, status, display_info):
         # 接受游戏记录数据
         self.difficulty = difficulty
         self.status = status
+        self.display_info = display_info
 
-        if difficulty.easy:
-            # 设置主界面的参数
-            self.main_window_size = (600, 650)
-            # 设置扫雷区域的参数。
-            self.minefield_window_size = (501, 501)  # 20*20
-            # 设置地雷数
-            self.mine_number = 50
-            # 游戏结束后在扫雷田上出现的文字尺寸
-            self.minefield_font_size = 100
-        elif difficulty.middle:
-            # 设置主界面的参数
-            self.main_window_size = (1000, 650)
-            # 设置扫雷区域的参数。
-            self.minefield_window_size = (901, 501)  # 36*20
-            # 设置地雷数
-            self.mine_number = 110
-            # 游戏结束后在扫雷田上出现的文字尺寸
-            self.minefield_font_size = 160
-        elif difficulty.hard:
-            # 设置主界面的参数
-            self.main_window_size = (1300, 650)
-            # 设置扫雷区域的参数。
-            self.minefield_window_size = (1201, 501)  # 48*20
-            # 设置地雷数
-            self.mine_number = 200
-            # 游戏结束后在扫雷田上出现的文字尺寸
-            self.minefield_font_size = 200
+        if self.display_info.current_w >= 1920 or self.display_info.current_h >= 1080:
+            if difficulty.easy:
+                # 设置主界面的参数
+                self.main_window_size = (600, 650)
+                # 设置扫雷区域的参数。
+                self.minefield_window_size = (501, 501)  # 20*20
+                # 设置地雷数
+                self.mine_number = 50
+                # 游戏结束后在扫雷田上出现的文字尺寸
+                self.minefield_font_size = 100
+            elif difficulty.middle:
+                # 设置主界面的参数
+                self.main_window_size = (1000, 650)
+                # 设置扫雷区域的参数。
+                self.minefield_window_size = (901, 501)  # 36*20
+                # 设置地雷数
+                self.mine_number = 110
+                # 游戏结束后在扫雷田上出现的文字尺寸
+                self.minefield_font_size = 160
+            elif difficulty.hard:
+                # 设置主界面的参数
+                self.main_window_size = (1300, 650)
+                # 设置扫雷区域的参数。
+                self.minefield_window_size = (1201, 501)  # 48*20
+                # 设置地雷数
+                self.mine_number = 200
+                # 游戏结束后在扫雷田上出现的文字尺寸
+                self.minefield_font_size = 200
+            elif difficulty.very_hard:
+                # 设置主界面的参数
+                self.main_window_size = (1500, 800)
+                # 设置扫雷区域的参数。
+                self.minefield_window_size = (1401, 651)  # 56*26
+                # 设置地雷数
+                self.mine_number = 310
+                # 游戏结束后在扫雷田上出现的文字尺寸
+                self.minefield_font_size = 250
         else:
-            print("请选择难度")
+            if difficulty.easy:
+                # 设置主界面的参数
+                self.main_window_size = (600, 650)
+                # 设置扫雷区域的参数。
+                self.minefield_window_size = (501, 501)  # 20*20
+                # 设置地雷数
+                self.mine_number = 50
+                # 游戏结束后在扫雷田上出现的文字尺寸
+                self.minefield_font_size = 100
+            elif difficulty.middle:
+                # 设置主界面的参数
+                self.main_window_size = (1000, 650)
+                # 设置扫雷区域的参数。
+                self.minefield_window_size = (901, 501)  # 36*20
+                # 设置地雷数
+                self.mine_number = 110
+                # 游戏结束后在扫雷田上出现的文字尺寸
+                self.minefield_font_size = 160
+            elif difficulty.hard or difficulty.very_hard:
+                # 设置主界面的参数
+                self.main_window_size = (1300, 650)
+                # 设置扫雷区域的参数。
+                self.minefield_window_size = (1201, 501)  # 48*20
+                # 设置地雷数
+                self.mine_number = 200
+                # 游戏结束后在扫雷田上出现的文字尺寸
+                self.minefield_font_size = 200
 
         # 设置选择窗口相关属性
         self.chose_window_size = (400, 300)

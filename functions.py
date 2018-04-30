@@ -273,6 +273,18 @@ def update_record_windows(time_record_window, number_record_window, status):
         number_record_window.update_font()
 
 
+def build_resolution_ratio_word(screen, time_record_window, setting):
+    # 获得窗口rect信息
+    screen_rect = screen.get_rect()
+
+    text = pygame.font.SysFont("华文仿宋", 28)
+    text_picture = text.render("当前屏幕分辨率不足，回到困难模式", True, setting.font_color)
+    text_picture_rect = text_picture.get_rect()
+    text_picture_rect.centerx = screen_rect.centerx
+    text_picture_rect.centery = time_record_window.rect.centery
+    screen.blit(text_picture, text_picture_rect)
+
+
 # 游戏结束后绘制半透明蒙版
 def game_over(field, status):
     if not status.game_going_flag:
@@ -322,14 +334,22 @@ def check_chose(status, difficulty):
                                 difficulty.easy = True
                                 difficulty.middle = False
                                 difficulty.hard = False
+                                difficulty.very_hard = False
                             elif i == 1:
                                 difficulty.easy = False
                                 difficulty.middle = True
                                 difficulty.hard = False
+                                difficulty.very_hard = False
                             elif i == 2:
                                 difficulty.easy = False
                                 difficulty.middle = False
                                 difficulty.hard = True
+                                difficulty.very_hard = False
+                            elif i == 3:
+                                difficulty.easy = False
+                                difficulty.middle = False
+                                difficulty.hard = False
+                                difficulty.very_hard = True
                             status.chose_flag = True
                         i += 1
 
@@ -340,16 +360,19 @@ def set_font(screen, setting, status):
     # 获得窗口rect信息
     screen_rect = screen.get_rect()
 
-    font_build("请选择难度", (screen_rect.centerx, screen_rect.y + 30), 30, screen, setting.font_color)
-    font_build("(直接点击）", (screen_rect.centerx, screen_rect.y + 70), 20, screen, setting.font_color)
-    rect = font_build("简单", (screen_rect.centerx - 100, screen_rect.y + 110), 30, screen, setting.chose_font_color, True)
+    font_build("请选择难度", (screen_rect.centerx, screen_rect.y + 20), 30, screen, setting.font_color)
+    font_build("(直接点击）", (screen_rect.centerx, screen_rect.y + 60), 20, screen, setting.font_color)
+    rect = font_build("简单", (screen_rect.centerx - 100, screen_rect.y + 100), 30, screen, setting.chose_font_color, True)
     status.difficulty_rect.append(rect)
-    rect = font_build("一般", (screen_rect.centerx, screen_rect.y + 110), 30, screen, setting.chose_font_color, True)
+    rect = font_build("一般", (screen_rect.centerx, screen_rect.y + 100), 30, screen, setting.chose_font_color, True)
     status.difficulty_rect.append(rect)
-    rect = font_build("困难", (screen_rect.centerx + 100, screen_rect.y + 110), 30, screen, setting.chose_font_color, True)
+    rect = font_build("困难", (screen_rect.centerx + 100, screen_rect.y + 100), 30, screen, setting.chose_font_color, True)
     status.difficulty_rect.append(rect)
-    font_build("任何时候按F5重新开始当前难度游戏", (screen_rect.centerx, screen_rect.y + 180), 20, screen, setting.font_color)
-    font_build("任何时候按ctrl+F5重新开始游戏", (screen_rect.centerx, screen_rect.y + 220), 20, screen, setting.font_color)
+    rect = font_build("非常困难(仅支持1080P屏幕)", (screen_rect.centerx, screen_rect.y + 145), 25, screen, setting.chose_font_color,
+                      True)
+    status.difficulty_rect.append(rect)
+    font_build("任何时候按F5重新开始当前难度游戏", (screen_rect.centerx, screen_rect.y + 190), 20, screen, setting.font_color)
+    font_build("任何时候按ctrl+F5重新开始游戏", (screen_rect.centerx, screen_rect.y + 230), 20, screen, setting.font_color)
     font_build("copyright © 陈守阳", (screen_rect.centerx, screen_rect.y + 270), 16, screen, setting.font_color)
 
 

@@ -12,17 +12,18 @@ def main(difficulty):
     整个程序是在游戏主循环之前创建好地雷等东西，然后在主循环中修改并更新，只创建了一次。
     :return:
     """
+    pygame.init()
+    display_info = pygame.display.Info()
     # 初始化游戏状态记录类
     status = Status()
 
     # 初始化设置
-    setting = Setting(difficulty, status)
+    setting = Setting(difficulty, status, display_info)
 
     # 选择难度
-    pygame.init()
     if difficulty.ctrl_F5_key:
         chose_difficulty(status, setting, difficulty)
-        setting = Setting(difficulty, status)
+        setting = Setting(difficulty, status, display_info)
 
     # 初始化程序界面
     screen_main = pygame.display.set_mode(setting.main_window_size)
@@ -48,6 +49,10 @@ def main(difficulty):
     number_record_window = NumberRecordWindow(setting, field, screen_main, status)
     number_record_window.build_me()
     number_record_window.update_font()
+
+    # 是否需要加上分辨率不足提示语
+    if display_info.current_w < 1920 and display_info.current_h < 1080 and difficulty.very_hard:
+        build_resolution_ratio_word(screen_main, time_record_window, setting)
 
     # 开始程序主循环
     while True:
