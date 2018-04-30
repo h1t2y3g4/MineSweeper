@@ -1,6 +1,8 @@
 # MineSweeper
 
 ## 使用方法
+点击右上角“clone or download”下载zip文件到本地，然后解压。
+
 直接打开dist文件夹中的MineSweeper.exe即可。
 
 如果嫌垃圾太多占地方的话，只需要保留dist文件夹中的images文件夹和MineSweeper.exe即可。其他的文件都可以删了。
