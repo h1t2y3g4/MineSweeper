@@ -81,7 +81,7 @@ class Setting:
 
         # 设置扫雷区域的参数。
         self.minefield_color = (0, 0, 0)
-        self.game_over_color = (255, 255, 255, 200)
+        self.game_over_color = (255, 255, 255, 150)
         self.minefield_font_color = (0, 0, 0)  # 游戏结束后在扫雷田上出现的文字颜色
 
         # 初始化记录窗口的雷数
