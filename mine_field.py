@@ -20,7 +20,10 @@ class MineField:
 
         # 设置胜利后字体
         self.font = pygame.font.SysFont("Calibri", self.setting.minefield_font_size)
-
+        self.font2 = pygame.font.SysFont("华文仿宋", 30)
+        self.font3 = pygame.font.SysFont("华文仿宋", 30)
+        self.font2_picture = self.font2.render("按F5重新开始当前难度游戏", True, self.setting.minefield_font_color)
+        self.font3_picture = self.font3.render("按Ctrl+F5重新开始游戏", True, self.setting.minefield_font_color)
 
     # 绘制雷区
     def build_me(self):
@@ -37,8 +40,18 @@ class MineField:
         self.font_picture_rect.centerx = self.rect.centerx
         self.font_picture_rect.centery = self.rect.centery
 
+        self.font2_picture_rect = self.font2_picture.get_rect()
+        self.font2_picture_rect.centerx = self.rect.centerx
+        self.font2_picture_rect.top = self.font_picture_rect.bottom + 20
+
+        self.font3_picture_rect = self.font3_picture.get_rect()
+        self.font3_picture_rect.centerx = self.rect.centerx
+        self.font3_picture_rect.top = self.font2_picture_rect.bottom + 10
+
         self.screen.blit(self.image, self.rect)
         self.screen.blit(self.font_picture, self.font_picture_rect)
+        self.screen.blit(self.font2_picture, self.font2_picture_rect)
+        self.screen.blit(self.font3_picture, self.font3_picture_rect)
 
     # 游戏失败结束后绘制半透明蒙版
     def game_over_fail(self):
@@ -51,5 +64,15 @@ class MineField:
         self.font_picture_rect.centerx = self.rect.centerx
         self.font_picture_rect.centery = self.rect.centery
 
+        self.font2_picture_rect = self.font2_picture.get_rect()
+        self.font2_picture_rect.centerx = self.rect.centerx
+        self.font2_picture_rect.top = self.font_picture_rect.bottom + 20
+
+        self.font3_picture_rect = self.font3_picture.get_rect()
+        self.font3_picture_rect.centerx = self.rect.centerx
+        self.font3_picture_rect.top = self.font2_picture_rect.bottom + 10
+
         self.screen.blit(self.image, self.rect)
         self.screen.blit(self.font_picture, self.font_picture_rect)
+        self.screen.blit(self.font2_picture, self.font2_picture_rect)
+        self.screen.blit(self.font3_picture, self.font3_picture_rect)

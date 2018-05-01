@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5dec7e0d-98e2-4969-9df8-bde1e98728e7}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>main.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>Global|PythonCore|3.6</InterpreterId>
+    <IsWindowsApplication>True</IsWindowsApplication>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="build\main\warnmain.txt" />
+    <Content Include="build\main\xref-main.html" />
+    <Content Include="dist\images\1.jpg" />
+    <Content Include="dist\images\2.jpg" />
+    <Content Include="dist\images\24乘24地雷.bmp" />
+    <Content Include="dist\images\24乘24旗帜.bmp" />
+    <Content Include="dist\images\24乘24旗帜地雷.bmp" />
+    <Content Include="dist\images\24乘24点击爆炸地雷.bmp" />
+    <Content Include="dist\images\24乘24爆炸地雷.bmp" />
+    <Content Include="dist\images\24乘24的1.bmp" />
+    <Content Include="dist\images\24乘24的2.bmp" />
+    <Content Include="dist\images\24乘24的3.bmp" />
+    <Content Include="dist\images\24乘24的4.bmp" />
+    <Content Include="dist\images\24乘24的5.bmp" />
+    <Content Include="dist\images\24乘24的7.bmp" />
+    <Content Include="dist\images\24乘24的8.bmp" />
+    <Content Include="dist\images\24乘24问号.bmp" />
+    <Content Include="dist\images\3.jpg" />
+    <Content Include="dist\images\4.jpg" />
+    <Content Include="dist\images\5.jpg" />
+    <Content Include="dist\images\50乘50地雷计数.bmp" />
+    <Content Include="dist\images\50乘50时钟.bmp" />
+    <Content Include="dist\images\7.jpg" />
+    <Content Include="dist\images\8.jpg" />
+    <Content Include="dist\images\icon.ico" />
+    <Content Include="dist\images\icon.png" />
+    <Content Include="dist\images\mine.bmp" />
+    <Content Include="dist\images\mine_field.bmp" />
+    <Content Include="dist\images\地雷.jpg" />
+    <Content Include="dist\images\地雷计数.jpg" />
+    <Content Include="dist\images\旗帜.jpg" />
+    <Content Include="dist\images\旗帜地雷.jpg" />
+    <Content Include="dist\images\时钟.jpg" />
+    <Content Include="dist\images\点击爆炸地雷.jpg" />
+    <Content Include="dist\images\爆炸地雷.jpg" />
+    <Content Include="dist\images\问号.jpg" />
+    <Content Include="icon.ico" />
+    <Content Include="images\1.jpg" />
+    <Content Include="images\2.jpg" />
+    <Content Include="images\24乘24地雷.bmp" />
+    <Content Include="images\24乘24旗帜.bmp" />
+    <Content Include="images\24乘24旗帜地雷.bmp" />
+    <Content Include="images\24乘24点击爆炸地雷.bmp" />
+    <Content Include="images\24乘24爆炸地雷.bmp" />
+    <Content Include="images\24乘24的1.bmp" />
+    <Content Include="images\24乘24的2.bmp" />
+    <Content Include="images\24乘24的3.bmp" />
+    <Content Include="images\24乘24的4.bmp" />
+    <Content Include="images\24乘24的5.bmp" />
+    <Content Include="images\24乘24的7.bmp" />
+    <Content Include="images\24乘24的8.bmp" />
+    <Content Include="images\24乘24问号.bmp" />
+    <Content Include="images\3.jpg" />
+    <Content Include="images\4.jpg" />
+    <Content Include="images\5.jpg" />
+    <Content Include="images\50乘50地雷计数.bmp" />
+    <Content Include="images\50乘50时钟.bmp" />
+    <Content Include="images\7.jpg" />
+    <Content Include="images\8.jpg" />
+    <Content Include="images\icon.ico" />
+    <Content Include="images\icon.png" />
+    <Content Include="images\mine.bmp" />
+    <Content Include="images\mine_field.bmp" />
+    <Content Include="images\地雷.jpg" />
+    <Content Include="images\地雷计数.jpg" />
+    <Content Include="images\旗帜.jpg" />
+    <Content Include="images\旗帜地雷.jpg" />
+    <Content Include="images\时钟.jpg" />
+    <Content Include="images\点击爆炸地雷.jpg" />
+    <Content Include="images\爆炸地雷.jpg" />
+    <Content Include="images\问号.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="difficulty.py" />
+    <Compile Include="functions.py" />
+    <Compile Include="main.py" />
+    <Compile Include="mine_block.py" />
+    <Compile Include="mine_field.py" />
+    <Compile Include="record_windows.py" />
+    <Compile Include="settings.py" />
+    <Compile Include="status.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="build\" />
+    <Folder Include="build\main" />
+    <Folder Include="dist\" />
+    <Folder Include="dist\images" />
+    <Folder Include="images" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.6" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>

@@ -6,3 +6,5 @@ class Difficulty:
         self.middle = True  # 是否为一般模式
         self.hard = False  # 是否为困难模式
         self.very_hard = False  # 是否为非常困难模式
+
+        self.display_info = 0

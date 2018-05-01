@@ -1,12 +1,11 @@
 class Setting:
 
-    def __init__(self, difficulty, status, display_info):
+    def __init__(self, difficulty, status):
         # 接受游戏记录数据
         self.difficulty = difficulty
         self.status = status
-        self.display_info = display_info
 
-        if self.display_info.current_w >= 1920 or self.display_info.current_h >= 1080:
+        if self.difficulty.display_info.current_w >= 1920 or self.difficulty.display_info.current_h >= 1080:
             if difficulty.easy:
                 # 设置主界面的参数
                 self.main_window_size = (600, 650)

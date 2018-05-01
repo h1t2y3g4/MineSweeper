@@ -20,7 +20,7 @@ class Status:
 
         self.difficulty_rect = []  # 选择难度时按钮rect的列表
         self.chose_flag = False  # 是否选择了难度
-        self.ctrl_flag = False
+        self.ctrl_flag = False  # 是否按下了ctrl键
 
 
 
