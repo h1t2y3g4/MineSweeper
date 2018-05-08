@@ -50,7 +50,6 @@ def main(difficulty):
     number_record_window.update_font()
 
     # 是否需要加上分辨率不足提示语
-    print(difficulty.display_info.current_w)
     if difficulty.display_info.current_w < 1920 and difficulty.display_info.current_h < 1080 and difficulty.very_hard:
         build_resolution_ratio_word(screen_main, time_record_window, setting)
 
