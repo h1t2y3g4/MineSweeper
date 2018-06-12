@@ -3,14 +3,17 @@ import sys
 import pygame
 import random
 import time
+import multiprocessing
 
 
 # 检查事件
 def check_event(blocks, setting, status, difficulty):
     for event in pygame.event.get():
+        # 点叉叉或者是按ESC退出游戏
         if event.type == pygame.QUIT or (event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE):
             pygame.quit()
             sys.exit()
+        # ctrl+F5重新开始游戏
         elif event.type == pygame.KEYDOWN and (event.key == pygame.K_LCTRL or event.key == pygame.K_RCTRL):
             status.ctrl_flag = True
         elif event.type == pygame.KEYUP and (event.key == pygame.K_LCTRL or event.key == pygame.K_RCTRL):
@@ -24,8 +27,21 @@ def check_event(blocks, setting, status, difficulty):
             else:
                 difficulty.ctrl_F5_key = False
             break
+        # ctrl+w退出游戏
+        elif status.ctrl_flag and event.type == pygame.KEYUP and event.key == pygame.K_w:
+            pygame.quit()
+            sys.exit()
+        # alt+F4退出游戏
+        elif event.type == pygame.KEYDOWN and (event.key == pygame.K_LALT or event.key == pygame.K_RALT):
+            status.alt_flag = True
+        elif event.type == pygame.KEYUP and (event.key == pygame.K_LALT or event.key == pygame.K_RALT):
+            status.alt_flag = False
+        elif status.alt_flag and event.type == pygame.KEYUP and event.key == pygame.K_F4:
+            pygame.quit()
+            sys.exit()
+
         else:
-            if status.game_going_flag:
+            if status.game_going_flag:  # 要游戏处于活跃状态才进行以下步骤
                 response_if_win(blocks, status)
                 if event.type == pygame.MOUSEMOTION:
                     # 鼠标移动到方块上面该做的事
@@ -40,7 +56,7 @@ def check_event(blocks, setting, status, difficulty):
                     elif button == 3:
                         # 按下右键后该做的事
                         response_mouse_right_click(mouse_x, mouse_y, blocks, setting, status)
-            else:
+            else:  # 如果游戏不继续了，就翻开所有方块
                 open_other_block(blocks, setting)
 
 
@@ -48,12 +64,13 @@ def check_event(blocks, setting, status, difficulty):
 def response_if_win(blocks, status):
     status.game_win = check_game_win_flag(blocks)
     if status.game_win:
+        # 这里我需要把成绩记录到文件中
         status.game_going_flag = False
 
         print("你赢了")
 
 
-# 检查游戏是否胜利,返回status的记录旗帜
+# 检查游戏是否胜利,返回status的记录旗帜。这里需要遍历一遍所有的地雷。
 def check_game_win_flag(blocks):
     for block_y in blocks:
         for block in block_y:
@@ -62,7 +79,7 @@ def check_game_win_flag(blocks):
     return True
 
 
-# 当鼠标右键点击了方块时，作出反应
+# 当鼠标右键点击了方块时，作出反应。又是一遍遍历，同样可以多进程。
 def response_mouse_right_click(mouse_x, mouse_y, blocks, setting, status):
     for block_y in blocks:
         for block in block_y:
@@ -85,7 +102,7 @@ def response_mouse_right_click(mouse_x, mouse_y, blocks, setting, status):
                     block.question_mark_flag = False
 
 
-# 游戏结束以后，翻开其他的地雷小块
+# 游戏结束以后，翻开其他的地雷小块。第五遍遍历了，可以多进程优化。
 def open_other_block(blocks, setting):
     for block_y in blocks:
         for block in block_y:
@@ -96,19 +113,19 @@ def open_other_block(blocks, setting):
                     block.image = pygame.image.load(setting.bannered_mine_picture)
 
 
-# 当鼠标左键点击了没有翻开的地雷的时候，做出反应
+# 当鼠标左键点击了没有翻开的地雷的时候，做出反应。一遍遍历，可多进程。
 def response_mouse_left_click(mouse_x, mouse_y, blocks, setting, status):
     for block_y in blocks:
         for block in block_y:
             # 双层循环内的判断
             if not block.left_clicked_flag:
                 # 如果当前方块是没有左键点过的
-                if block.rect.top <= mouse_y <= block.rect.bottom and block.rect.left <= mouse_x <= block.rect.right:
+                if block.rect.collidepoint(mouse_x, mouse_y):
                     if not block.banner_flag:
                         # 如果不是旗子，可以是问号
                         block.left_clicked_flag = True
                         if status.first_click:
-                            # 检测是否是第一次点击的方块
+                            # 检测之前是否点了第一下，如果之前没有点，那么这个方块就作为第一次点击的方块，打上记号
                             block.first_click_flag = True
                             status.first_click_time = time.time()
                             status.game_begin_flag = True
@@ -119,7 +136,7 @@ def response_mouse_left_click(mouse_x, mouse_y, blocks, setting, status):
                             block.clicked_mine_flag = True
                             status.game_going_flag = False
                         else:
-                            # 根据count的数值来加载图片
+                            # 如果点开的这个方块不是地雷,根据count的数值来加载图片
                             if block.count == 0:
                                 block.image.fill(setting.clicked_mine_block_color)
                                 x = block_y.index(block)
@@ -180,12 +197,13 @@ def automatic_click_consecutive_block(x, y, blocks, setting):
                 continue
 
 
-# 当鼠标移动到没有翻开的方块上时作出反应
+# 当鼠标移动到没有翻开的方块上时作出反应。这里需要遍历一遍地雷列表，这个可以多进程化。
 def response_mouse_position(mouse_x, mouse_y, blocks, setting):
     for block_y in blocks:
         for block in block_y:
-            if not block.left_clicked_flag:  # 如果当前方块是没有点过的
-                if block.rect.top <= mouse_y <= block.rect.bottom and block.rect.left <= mouse_x <= block.rect.right:
+            if not block.left_clicked_flag:  # 如果当前方块是没有左键点过的
+                if block.rect.collidepoint(mouse_x, mouse_y):
+                # if block.rect.top <= mouse_y <= block.rect.bottom and block.rect.left <= mouse_x <= block.rect.right: (这句话成为历史）
                     if not (block.banner_flag or block.question_mark_flag):
                         block.image.fill(setting.mine_block_color_mousemotion)
                 elif block.banner_flag:
@@ -252,7 +270,7 @@ def check_first_clicked_block(blocks, rand_x, rand_y):
     return True
 
 
-# 将地雷列表绘制到主屏幕上面去
+# 将地雷列表绘制到主屏幕上面去。第六遍遍历，貌似也可以多进程。
 def update_blocks(blocks):
     for block_y in blocks:
         for block in block_y:

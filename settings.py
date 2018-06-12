@@ -110,7 +110,7 @@ class Setting:
 
         # 设置记录窗口参数
         self.record_window_size = (200, 50)
-        self.record_window_color = (255, 255, 255)
+        self.record_window_color = (197, 234, 255)
         self.font_color = (0, 0, 0)
         self.number_record_picture = r"images/50乘50地雷计数.bmp"
         self.time_record_picture = r"images/50乘50时钟.bmp"

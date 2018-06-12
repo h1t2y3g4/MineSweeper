@@ -25,7 +25,8 @@ class TimeRecordWindow:
         self.time_font = pygame.font.SysFont("Calibri", 40)
         self.time_font_picture = self.time_font.render("0", True, self.setting.font_color)
         self.time_font_picture_rect = self.time_font_picture.get_rect()
-        self.time_font_picture_rect.midright = self.rect.midright
+        self.time_font_picture_rect.centery = self.picture_rect.centery
+        self.time_font_picture_rect.left = self.picture_rect.right + 20
 
     def build_me(self):
         self.screen.blit(self.image, self.rect)
@@ -34,7 +35,8 @@ class TimeRecordWindow:
     def update_font(self):
         self.time_font_picture = self.time_font.render(str(self.status.time_record), True, self.setting.font_color)
         self.time_font_picture_rect = self.time_font_picture.get_rect()
-        self.time_font_picture_rect.midright = self.rect.midright
+        self.time_font_picture_rect.centery = self.picture_rect.centery
+        self.time_font_picture_rect.left = self.picture_rect.right + 20
         self.screen.blit(self.time_font_picture, self.time_font_picture_rect)
 
 
@@ -68,7 +70,8 @@ class NumberRecordWindow:
         第四个是背景色，如果你想没有背景色（也就是透明），那么可以不加这第四个参数。
         """
         self.number_font_picture_rect = self.number_font_picture.get_rect()
-        self.number_font_picture_rect.midright = self.rect.midright
+        self.number_font_picture_rect.centery = self.picture_rect.centery
+        self.number_font_picture_rect.left = self.picture_rect.right + 20
 
     def build_me(self):
         self.screen.blit(self.image, self.rect)
@@ -78,5 +81,6 @@ class NumberRecordWindow:
         self.number_font_picture = self.number_font.render(str(self.status.fake_mine_number), True,
                                                            self.setting.font_color)
         self.number_font_picture_rect = self.number_font_picture.get_rect()
-        self.number_font_picture_rect.midright = self.rect.midright
+        self.number_font_picture_rect.centery = self.picture_rect.centery
+        self.number_font_picture_rect.left = self.picture_rect.right + 20
         self.screen.blit(self.number_font_picture, self.number_font_picture_rect)
