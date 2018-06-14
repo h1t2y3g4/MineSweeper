@@ -72,7 +72,7 @@ class Setting:
                 self.minefield_font_size = 200
 
         # 设置选择窗口相关属性
-        self.chose_window_size = (400, 300)
+        self.chose_window_size = (400, 350)
         self.chose_font_color = (255, 0, 0)  # 设置选择难度按钮字体颜色
 
         # 设置主界面的参数

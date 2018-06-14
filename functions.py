@@ -3,7 +3,7 @@ import sys
 import pygame
 import random
 import time
-import multiprocessing
+import os
 
 
 # 检查事件
@@ -28,7 +28,7 @@ def check_event(blocks, setting, status, difficulty):
                 difficulty.ctrl_F5_key = False
             break
         # ctrl+w退出游戏
-        elif status.ctrl_flag and event.type == pygame.KEYUP and event.key == pygame.K_w:
+        elif status.ctrl_flag and (event.type == pygame.KEYUP and event.key == pygame.K_w):
             pygame.quit()
             sys.exit()
         # alt+F4退出游戏
@@ -40,9 +40,12 @@ def check_event(blocks, setting, status, difficulty):
             pygame.quit()
             sys.exit()
 
+        elif event.type == pygame.KEYUP and event.key == pygame.K_F10:
+            os.system('charts.exe')  # 这样打开以后，相对文件目录还是在本文件开始算的，跟打开的文件没关系卧槽！
+
         else:
             if status.game_going_flag:  # 要游戏处于活跃状态才进行以下步骤
-                response_if_win(blocks, status)
+                response_if_win(blocks, status, difficulty)
                 if event.type == pygame.MOUSEMOTION:
                     # 鼠标移动到方块上面该做的事
                     mouse_x, mouse_y = event.pos
@@ -60,12 +63,35 @@ def check_event(blocks, setting, status, difficulty):
                 open_other_block(blocks, setting)
 
 
+# 游戏胜利后，把成绩写入文件
+def write_record_in_file(difficulty, status):
+    difficult = "undefined"
+    if difficulty.easy:
+        difficult = 'easy'
+    elif difficulty.middle:
+        difficult = 'middle'
+    elif difficulty.hard:
+        difficult = 'hard'
+    elif difficulty.very_hard:
+        difficult = 'very_hard'
+    local_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    used_time = status.time_record
+    with open('charts/' + difficult + '.txt', 'a') as file_object:
+        corrent = {'used_time': used_time, 'local_time': local_time}
+        file_object.write(str(corrent) + '\n')
+    with open('charts/difficult.txt', 'w') as f:
+        f.write(difficult)
+
+
 # 对游戏是否胜利做出响应
-def response_if_win(blocks, status):
+def response_if_win(blocks, status, difficulty):
     status.game_win = check_game_win_flag(blocks)
     if status.game_win:
         # 这里我需要把成绩记录到文件中
         status.game_going_flag = False
+
+        write_record_in_file(difficulty, status)
+        os.system('charts.exe')  # 这样打开以后，相对文件目录还是在本文件开始算的，跟打开的文件没关系卧槽！
 
         print("你赢了")
 
@@ -83,7 +109,7 @@ def check_game_win_flag(blocks):
 def response_mouse_right_click(mouse_x, mouse_y, blocks, setting, status):
     for block_y in blocks:
         for block in block_y:
-            if block.rect.top <= mouse_y <= block.rect.bottom and block.rect.left <= mouse_x <= block.rect.right:
+            if block.rect.collidepoint(mouse_x, mouse_y):
                 if not (block.left_clicked_flag or block.banner_flag or block.question_mark_flag):
                     # 如果是未点开，并且不是旗帜，并且不是问号
                     block.image = pygame.image.load(setting.right_click_banner_picture)
@@ -147,22 +173,8 @@ def response_mouse_left_click(mouse_x, mouse_y, blocks, setting, status):
                                     status.first_click = False
                                 # 找出连续的count为0的方块
                                 automatic_click_consecutive_block(x, y, blocks, setting)
-                            elif block.count == 1:
-                                block.image = pygame.image.load(setting.picture_1)
-                            elif block.count == 2:
-                                block.image = pygame.image.load(setting.picture_2)
-                            elif block.count == 3:
-                                block.image = pygame.image.load(setting.picture_3)
-                            elif block.count == 4:
-                                block.image = pygame.image.load(setting.picture_4)
-                            elif block.count == 5:
-                                block.image = pygame.image.load(setting.picture_5)
-                            elif block.count == 6:
-                                block.image = pygame.image.load(setting.picture_6)
-                            elif block.count == 7:
-                                block.image = pygame.image.load(setting.picture_7)
-                            elif block.count == 8:
-                                block.image = pygame.image.load(setting.picture_8)
+                            else:
+                                block.image = pygame.image.load("images/24乘24的" + str(block.count) + ".bmp")
 
 
 # 找出连续的count为0的方块
@@ -177,22 +189,8 @@ def automatic_click_consecutive_block(x, y, blocks, setting):
                     if blocks[y + der_y][x + der_x].count == 0:
                         blocks[y + der_y][x + der_x].image.fill(setting.clicked_mine_block_color)
                         automatic_click_consecutive_block(x + der_x, y + der_y, blocks, setting)
-                    elif blocks[y + der_y][x + der_x].count == 1:
-                        blocks[y + der_y][x + der_x].image = pygame.image.load(setting.picture_1)
-                    elif blocks[y + der_y][x + der_x].count == 2:
-                        blocks[y + der_y][x + der_x].image = pygame.image.load(setting.picture_2)
-                    elif blocks[y + der_y][x + der_x].count == 3:
-                        blocks[y + der_y][x + der_x].image = pygame.image.load(setting.picture_3)
-                    elif blocks[y + der_y][x + der_x].count == 4:
-                        blocks[y + der_y][x + der_x].image = pygame.image.load(setting.picture_4)
-                    elif blocks[y + der_y][x + der_x].count == 5:
-                        blocks[y + der_y][x + der_x].image = pygame.image.load(setting.picture_5)
-                    elif blocks[y + der_y][x + der_x].count == 6:
-                        blocks[y + der_y][x + der_x].image = pygame.image.load(setting.picture_6)
-                    elif blocks[y + der_y][x + der_x].count == 7:
-                        blocks[y + der_y][x + der_x].image = pygame.image.load(setting.picture_7)
-                    elif blocks[y + der_y][x + der_x].count == 8:
-                        blocks[y + der_y][x + der_x].image = pygame.image.load(setting.picture_8)
+                    else:
+                        blocks[y + der_y][x + der_x].image = pygame.image.load("images/24乘24的" + str(blocks[y + der_y][x + der_x].count) + ".bmp")
             except IndexError:
                 continue
 
@@ -202,8 +200,7 @@ def response_mouse_position(mouse_x, mouse_y, blocks, setting):
     for block_y in blocks:
         for block in block_y:
             if not block.left_clicked_flag:  # 如果当前方块是没有左键点过的
-                if block.rect.collidepoint(mouse_x, mouse_y):
-                # if block.rect.top <= mouse_y <= block.rect.bottom and block.rect.left <= mouse_x <= block.rect.right: (这句话成为历史）
+                if block.rect.collidepoint(mouse_x, mouse_y):  # 这是一个pygame内置函数，检测给的坐标点时候在当前surface对象内部
                     if not (block.banner_flag or block.question_mark_flag):
                         block.image.fill(setting.mine_block_color_mousemotion)
                 elif block.banner_flag:
@@ -335,9 +332,27 @@ def chose_difficulty(status, setting, difficulty):
         fps.tick(setting.fps)
 
 
+# 检查选择的是什么难度
 def check_chose(status, difficulty):
     for event in pygame.event.get():
+        # 点叉叉或者是按ESC退出游戏
         if event.type == pygame.QUIT or (event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE):
+            pygame.quit()
+            sys.exit()
+        # ctrl+w退出游戏
+        elif event.type == pygame.KEYDOWN and (event.key == pygame.K_LCTRL or event.key == pygame.K_RCTRL):
+            status.ctrl_flag = True
+        elif event.type == pygame.KEYUP and (event.key == pygame.K_LCTRL or event.key == pygame.K_RCTRL):
+            status.ctrl_flag = False
+        elif status.ctrl_flag and (event.type == pygame.KEYUP and event.key == pygame.K_w):
+            pygame.quit()
+            sys.exit()
+        # alt+F4退出游戏
+        elif event.type == pygame.KEYDOWN and (event.key == pygame.K_LALT or event.key == pygame.K_RALT):
+            status.alt_flag = True
+        elif event.type == pygame.KEYUP and (event.key == pygame.K_LALT or event.key == pygame.K_RALT):
+            status.alt_flag = False
+        elif status.alt_flag and event.type == pygame.KEYUP and event.key == pygame.K_F4:
             pygame.quit()
             sys.exit()
         else:
@@ -347,7 +362,7 @@ def check_chose(status, difficulty):
                 if button == 1:
                     i = 0
                     for rect in status.difficulty_rect:
-                        if rect.top <= mouse_y <= rect.bottom and rect.left <= mouse_x <= rect.right:
+                        if rect.collidepoint(mouse_x, mouse_y):
                             if i == 0:
                                 difficulty.easy = True
                                 difficulty.middle = False
@@ -369,6 +384,9 @@ def check_chose(status, difficulty):
                                 difficulty.hard = False
                                 difficulty.very_hard = True
                             status.chose_flag = True
+                            if i == 4:
+                                os.system('charts.exe')
+                                status.chose_flag = False
                         i += 1
 
 
@@ -382,7 +400,7 @@ def set_font(screen, setting, status):
     font_build("(直接点击）", (screen_rect.centerx, screen_rect.y + 60), 20, screen, setting.font_color)
     rect = font_build("简单", (screen_rect.centerx - 100, screen_rect.y + 100), 30, screen, setting.chose_font_color, True)
     status.difficulty_rect.append(rect)
-    rect = font_build("一般", (screen_rect.centerx, screen_rect.y + 100), 30, screen, setting.chose_font_color, True)
+    rect = font_build("中等", (screen_rect.centerx, screen_rect.y + 100), 30, screen, setting.chose_font_color, True)
     status.difficulty_rect.append(rect)
     rect = font_build("困难", (screen_rect.centerx + 100, screen_rect.y + 100), 30, screen, setting.chose_font_color, True)
     status.difficulty_rect.append(rect)
@@ -391,7 +409,9 @@ def set_font(screen, setting, status):
     status.difficulty_rect.append(rect)
     font_build("任何时候按F5重新开始当前难度游戏", (screen_rect.centerx, screen_rect.y + 190), 20, screen, setting.font_color)
     font_build("任何时候按ctrl+F5重新开始游戏", (screen_rect.centerx, screen_rect.y + 230), 20, screen, setting.font_color)
-    font_build("copyright © 陈守阳", (screen_rect.centerx, screen_rect.y + 270), 16, screen, setting.font_color)
+    rect = font_build("查看排行榜", (screen_rect.centerx, screen_rect.y + 270), 30, screen, setting.chose_font_color, True)
+    status.difficulty_rect.append(rect)
+    font_build("copyright © 陈守阳", (screen_rect.centerx, screen_rect.y + 320), 18, screen, setting.font_color)
 
 
 def font_build(content, pos, font_size, screen, color, bold=False):
